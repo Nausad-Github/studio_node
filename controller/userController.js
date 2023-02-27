@@ -14,6 +14,16 @@ exports.getUsers = async (req, res, next) =>{
     res.status(200).json({ user : user});
 }
 
+exports.getSingleUser = async (req, res, next) =>{
+    // console.log(req.user);
+    const user = await User.findOne({email: req.params.email}) ;
+
+    if(!user){
+        res.status(404).json({error : "User Not Found..."});
+    }
+    res.status(200).json({ user : user});
+}
+
 exports.getLoggedInUser = async (req, res, next) =>{
     res.json({user : req.user});
 }
